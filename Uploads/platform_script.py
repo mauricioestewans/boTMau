@@ -218,6 +218,192 @@ class PlatformScripts:
         }
     
     @staticmethod
+    def get_tidal_scripts():
+        """Scripts para Tidal - NOVO"""
+        return {
+            'prevent_pause': """
+                // Prevenir pausas no Tidal
+                (function() {
+                    // Clicar em play se pausado
+                    var playButton = document.querySelector('[data-test="play-controls"], [data-type="button-play"], button[aria-label*="Play" i]');
+                    if (playButton && playButton.getAttribute('aria-label')?.includes('Play')) {
+                        playButton.click();
+                        console.log('▶️  Tidal retomado!');
+                    }
+                    
+                    // Verificar player de áudio
+                    var audio = document.querySelector('audio');
+                    if (audio && audio.paused) {
+                        audio.play();
+                        console.log('▶️  Tidal áudio retomado!');
+                    }
+                    
+                    // Fechar modais de inatividade
+                    var modal = document.querySelector('[role="dialog"], .modal');
+                    if (modal) {
+                        var continueBtn = modal.querySelector('button');
+                        if (continueBtn) {
+                            continueBtn.click();
+                            console.log('✅ Modal fechado!');
+                        }
+                    }
+                })();
+            """,
+            
+            'accept_cookies': """
+                // Aceitar cookies no Tidal
+                (function() {
+                    var acceptButton = document.querySelector('[id*="accept"], [class*="accept"], button[class*="cookie"]');
+                    if (acceptButton) {
+                        acceptButton.click();
+                        console.log('🍪 Cookies aceitos!');
+                    }
+                })();
+            """,
+            
+            'simulate_activity': """
+                // Simular atividade no Tidal com RANDOMICIDADE
+                (function() {
+                    var x = Math.floor(Math.random() * window.innerWidth);
+                    var y = Math.floor(Math.random() * window.innerHeight);
+                    
+                    document.dispatchEvent(new MouseEvent('mousemove', {
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: x,
+                        clientY: y
+                    }));
+                    
+                    console.log('✨ Atividade simulada: mouse aleatório.');
+                })();
+            """
+        }
+    
+    @staticmethod
+    def get_apple_music_scripts():
+        """Scripts para Apple Music / iTunes - NOVO"""
+        return {
+            'prevent_pause': """
+                // Prevenir pausas no Apple Music
+                (function() {
+                    // Clicar em play se pausado
+                    var playButton = document.querySelector('[data-testid="play-button"], button[aria-label*="Play" i], .playback-play');
+                    if (playButton) {
+                        playButton.click();
+                        console.log('▶️  Apple Music retomado!');
+                    }
+                    
+                    // Verificar player de áudio
+                    var audio = document.querySelector('audio');
+                    if (audio && audio.paused) {
+                        audio.play();
+                        console.log('▶️  Apple Music áudio retomado!');
+                    }
+                    
+                    // Fechar alertas e modais
+                    var closeButtons = document.querySelectorAll('[aria-label*="Close" i], .modal-close, .dialog-close');
+                    closeButtons.forEach(btn => {
+                        if (btn.offsetParent !== null) {
+                            btn.click();
+                        }
+                    });
+                })();
+            """,
+            
+            'accept_cookies': """
+                // Aceitar cookies no Apple Music
+                (function() {
+                    var acceptButton = document.querySelector('button[class*="accept"], button[class*="agree"]');
+                    if (acceptButton) {
+                        acceptButton.click();
+                        console.log('🍪 Cookies aceitos!');
+                    }
+                })();
+            """,
+            
+            'simulate_activity': """
+                // Simular atividade no Apple Music com RANDOMICIDADE
+                (function() {
+                    var x = Math.floor(Math.random() * window.innerWidth);
+                    var y = Math.floor(Math.random() * window.innerHeight);
+                    
+                    document.dispatchEvent(new MouseEvent('mousemove', {
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: x,
+                        clientY: y
+                    }));
+                    
+                    // Scroll aleatório pequeno
+                    var scrollAmount = Math.random() < 0.5 ? 30 : -30;
+                    window.scrollBy(0, scrollAmount);
+                    
+                    console.log('✨ Atividade simulada: mouse e scroll aleatório.');
+                })();
+            """
+        }
+    
+    @staticmethod
+    def get_amazon_music_scripts():
+        """Scripts para Amazon Music - NOVO"""
+        return {
+            'prevent_pause': """
+                // Prevenir pausas no Amazon Music
+                (function() {
+                    // Clicar em play se pausado
+                    var playButton = document.querySelector('[data-testid="play-button"], button[aria-label*="Play" i], .playbackControls__play');
+                    if (playButton) {
+                        playButton.click();
+                        console.log('▶️  Amazon Music retomado!');
+                    }
+                    
+                    // Verificar player de áudio
+                    var audio = document.querySelector('audio');
+                    if (audio && audio.paused) {
+                        audio.play();
+                        console.log('▶️  Amazon Music áudio retomado!');
+                    }
+                    
+                    // Fechar modais e overlays
+                    var closeButtons = document.querySelectorAll('[aria-label*="Close" i], .modal-close, button[class*="close"]');
+                    closeButtons.forEach(btn => {
+                        if (btn.offsetParent !== null) {
+                            btn.click();
+                        }
+                    });
+                })();
+            """,
+            
+            'accept_cookies': """
+                // Aceitar cookies no Amazon Music
+                (function() {
+                    var acceptButton = document.querySelector('[id*="accept"], button[name*="accept"], input[id*="accept-cookies"]');
+                    if (acceptButton) {
+                        acceptButton.click();
+                        console.log('🍪 Cookies aceitos!');
+                    }
+                })();
+            """,
+            
+            'simulate_activity': """
+                // Simular atividade no Amazon Music com RANDOMICIDADE
+                (function() {
+                    var x = Math.floor(Math.random() * window.innerWidth);
+                    var y = Math.floor(Math.random() * window.innerHeight);
+                    
+                    document.dispatchEvent(new MouseEvent('mousemove', {
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: x,
+                        clientY: y
+                    }));
+                    
+                    console.log('✨ Atividade simulada: mouse aleatório.');
+                })();
+            """
+        }
+    
+    @staticmethod
     def get_universal_scripts():
         """Scripts universais para qualquer site"""
         return {
@@ -255,5 +441,11 @@ class PlatformScripts:
             return PlatformScripts.get_deezer_scripts()
         elif 'tiktok.com' in url_lower:
             return PlatformScripts.get_tiktok_scripts()
+        elif 'tidal.com' in url_lower:
+            return PlatformScripts.get_tidal_scripts()
+        elif 'music.apple.com' in url_lower or 'itunes.apple.com' in url_lower:
+            return PlatformScripts.get_apple_music_scripts()
+        elif 'music.amazon.com' in url_lower or 'amazon.com/music' in url_lower:
+            return PlatformScripts.get_amazon_music_scripts()
         else:
             return PlatformScripts.get_universal_scripts()
